@@ -33,6 +33,18 @@ jobs:
       - name: Verify Firebase CLI installation
         run: firebase --version
 
+      - name: Print environment variables
+        run: printenv
+
+      - name: Debug npx command
+        run: |
+          npx --version
+          firebase --version
+          npx firebase-tools deploy --only hosting
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIAL_MEDIA_PROJECT_A1572 }}
+          FIREBASE_PROJECT_ID: social-media-project-a1572
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
