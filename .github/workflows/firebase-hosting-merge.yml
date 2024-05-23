@@ -39,10 +39,11 @@ jobs:
       - name: Authenticate with Firebase
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIAL_MEDIA_PROJECT_A1572 }}" > "${HOME}/firebase-key.json"
-          firebase auth:login:ci --token $(cat ${HOME}/firebase-key.json | jq -r .token)
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
+          firebase projects:list
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/firebase-key.json"
-
+          
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
