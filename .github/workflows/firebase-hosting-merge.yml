@@ -32,7 +32,13 @@ jobs:
 
       - name: Verify Firebase CLI installation
         run: firebase --version
-          
+      
+      - name: give Access
+        run: sudo mkdir -p /opt/hostedtoolcache
+
+      - name: Give Access
+        run: sudo chmod -R 777 /opt/hostedtoolcache
+        
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
