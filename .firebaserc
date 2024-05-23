@@ -1,5 +1,6 @@
 {
   "projects": {
     "default": "social-media-project-a1572"
+    "public": "public"
   }
 }
