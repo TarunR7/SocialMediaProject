@@ -36,13 +36,17 @@ jobs:
       - name: Print environment variables
         run: printenv
 
-      - name: Authenticate with Firebase
+      - name: Write Firebase service account key to file
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIAL_MEDIA_PROJECT_A1572 }}" > "${HOME}/firebase-key.json"
-          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/firebase-key.json"
-          firebase projects:list
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/firebase-key.json"
+          cat "${HOME}/firebase-key.json"
+        shell: bash
+
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=${HOME}/firebase-key.json" >> $GITHUB_ENV
+
+      - name: Authenticate with Firebase
+        run: firebase projects:list
           
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
