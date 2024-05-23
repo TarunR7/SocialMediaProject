@@ -18,12 +18,20 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20.11.0'  # Specify the Node.js version you are using
+     
+      - name: Verify Node.js version
+        run: node -v
 
+      - name: Verify npm version
+        run: npm -v
       - name: Install dependencies
         run: npm install
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
+
+      - name: Verify Firebase CLI installation
+        run: firebase --version
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
