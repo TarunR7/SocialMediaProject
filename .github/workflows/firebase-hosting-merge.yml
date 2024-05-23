@@ -13,33 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.11.0'  # Specify the Node.js version you are using
-     
-      - name: Verify Node.js version
-        run: node -v
-
-      - name: Verify npm version
-        run: npm -v
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      - name: Verify Firebase CLI installation
-        run: firebase --version
-      
-      - name: give Access
-        run: sudo mkdir -p /opt/hostedtoolcache
-
-      - name: Give Access
-        run: sudo chmod -R 777 /opt/hostedtoolcache
-
-      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
