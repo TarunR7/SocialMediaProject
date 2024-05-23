@@ -36,14 +36,12 @@ jobs:
       - name: Print environment variables
         run: printenv
 
-      - name: Debug npx command
+      - name: Authenticate with Firebase
         run: |
-          npx --version
-          firebase --version
-          npx firebase-tools deploy --only hosting
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIAL_MEDIA_PROJECT_A1572 }}" > "${HOME}/firebase-key.json"
+          firebase auth:login:ci --token $(cat ${HOME}/firebase-key.json | jq -r .token)
         env:
-          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SOCIAL_MEDIA_PROJECT_A1572 }}
-          FIREBASE_PROJECT_ID: social-media-project-a1572
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/firebase-key.json"
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
